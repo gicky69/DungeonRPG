@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 import java.util.Random;
 
 public class Player implements KeyListener {
@@ -13,6 +12,7 @@ public class Player implements KeyListener {
     int directionY = 0;
 
     CoinPanel CoinPanel;
+    ShootProj Shoot;
 
     Random random = new Random();
 
@@ -21,6 +21,8 @@ public class Player implements KeyListener {
     public Player(JFrame Frame) {
         CoinPanel = new CoinPanel(Frame);
         Coin = new CoinClass(Frame, this);
+        Shoot = new ShootProj(Frame);
+
         Player = new JLabel("X");
         Player.setBounds(playerX,playerY,50,50);
         Frame.addKeyListener(this);
@@ -57,7 +59,6 @@ public class Player implements KeyListener {
         } else if (KeyCode == KeyEvent.VK_RIGHT) {
             directionX = playerSpeed;
         }
-
         if (KeyCode == KeyEvent.VK_W){
             directionY = -playerSpeed / 2;
         } else if (KeyCode == KeyEvent.VK_S) {
@@ -66,6 +67,12 @@ public class Player implements KeyListener {
             directionX = -playerSpeed / 2;
         } else if (KeyCode == KeyEvent.VK_D) {
             directionX = playerSpeed / 2;
+        }
+
+        // Player Shoot
+        if (KeyCode == KeyEvent.VK_J) {
+            System.out.println("Shooting!");
+            Shoot.PlayerShoot(playerX, playerY, this);
         }
     }
 
@@ -79,7 +86,6 @@ public class Player implements KeyListener {
         }
 
         // Slow Movement
-
         if (KeyCode == KeyEvent.VK_W || KeyCode == KeyEvent.VK_S) {
             directionY = 0;
         } else if (KeyCode == KeyEvent.VK_A || KeyCode == KeyEvent.VK_D) {

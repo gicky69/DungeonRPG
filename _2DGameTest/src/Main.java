@@ -4,6 +4,7 @@ public class Main implements Runnable {
     JFrame Frame;
     Player player;
     CoinClass Coin;
+    Enemy enemy;
 
     Thread GameThread;
 
@@ -18,6 +19,9 @@ public class Main implements Runnable {
 
         Coin = new CoinClass(Frame, player);
         Frame.add(Coin.Coin);
+
+        enemy = new Enemy(Frame);
+        Frame.add(enemy.Enemy);
 
         Frame.setFocusable(true);
         Frame.requestFocusInWindow();
@@ -40,6 +44,8 @@ public class Main implements Runnable {
     public void run() {
         while(GameThread != null) {
             player.update();
+            player.Shoot.update();
+            enemy.update();
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
